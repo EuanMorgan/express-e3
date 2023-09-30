@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import config from 'config';
 
-export interface UserDocument extends mongoose.Document {
+export interface UserDocument {
   email: string;
   name: string;
   password: string;
@@ -27,8 +27,7 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre('save', async function (next) {
-  let user = this as UserDocument;
-
+  const user = this;
   if (!user.isModified('password')) {
     return next();
   }

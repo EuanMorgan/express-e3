@@ -2,8 +2,13 @@ import {type Express} from 'express';
 import {createUserHandler} from './controller/user.controller';
 import validate from './middleware/validateResource';
 import {createUserInputSchema} from './schemas/user.schema';
-import {createUserSessionHandler} from './controller/session.controller';
+import {
+  createUserSessionHandler,
+  deleteSessionHandler,
+  getUserSessionsHandler,
+} from './controller/session.controller';
 import {createSessionInputSchema} from './schemas/session.schema';
+import {requireUser} from './middleware/requireUser';
 function routes(app: Express) {
   app.get('/ping', (req, res) => {
     res.send('pong');
@@ -15,6 +20,9 @@ function routes(app: Express) {
     validate(createSessionInputSchema),
     createUserSessionHandler
   );
+
+  app.get('/api/sessions', requireUser, getUserSessionsHandler);
+  app.delete('/api/sessions', requireUser, deleteSessionHandler);
 }
 
 export default routes;

@@ -1,6 +1,7 @@
 import mongoose, {type HydratedDocument} from 'mongoose';
+import {UserDocument} from './user.model';
 
-export interface UserDocument {
+export interface SessionDocument {
   user: HydratedDocument<UserDocument>['_id'];
   valid: boolean;
   userAgent: string;

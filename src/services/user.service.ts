@@ -6,7 +6,8 @@ export async function createUser(
   input: Omit<UserDocument, 'createdAt' | 'updatedAt' | 'comparePassword'>
 ) {
   try {
-    return await UserModel.create(input);
+    const user = await UserModel.create(input);
+    return omit(user.toJSON(), 'password');
   } catch (e: any) {
     throw new Error(e);
   }

@@ -10,7 +10,7 @@ export async function createUserHandler(
   try {
     const {passwordConfirmation, ...userInput} = req.body;
     const user = await createUser(userInput);
-    return res.send(omit(user.toJSON(), 'password'));
+    return res.send(user);
   } catch (error) {
     logger.error(error);
     res.status(409).send('A user with that email already exists');

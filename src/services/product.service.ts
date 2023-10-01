@@ -7,7 +7,7 @@ import {
 } from 'mongoose';
 
 export async function createProduct(
-  input: Omit<ProductDocument, 'createdAt' | 'updatedAt'>
+  input: Omit<ProductDocument, 'createdAt' | 'updatedAt' | 'productId'>
 ) {
   return ProductModel.create(input);
 }
